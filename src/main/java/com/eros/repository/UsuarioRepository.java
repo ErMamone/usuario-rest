@@ -11,7 +11,7 @@ import java.util.UUID;
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, UUID> {
 
-	public Usuario findByName(String name);
+	Usuario findByName(String name);
 
 
 	@Query("select case when count(c)> 0 then true else false end from Usuario c where c.email = :email")

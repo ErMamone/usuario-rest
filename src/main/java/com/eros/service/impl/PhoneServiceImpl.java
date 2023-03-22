@@ -20,10 +20,10 @@ public class PhoneServiceImpl implements PhoneService {
 	private final PhoneRepository phoneRepository;
 
 	@Override
-	public List<Phone> saveList(List<PhoneDTO> phones){
+	public List<Phone> saveList(List<PhoneDTO> phones) {
 		List<Phone> responseList = new ArrayList<>();
 
-		for(var phone : phones){
+		for (var phone : phones) {
 			responseList.add(save(new Phone(phone)));
 		}
 
@@ -32,7 +32,7 @@ public class PhoneServiceImpl implements PhoneService {
 
 	@Override
 	@Transactional
-	public Phone save (Phone phone){
+	public Phone save(Phone phone) {
 		return phoneRepository.save(phone);
 	}
 }

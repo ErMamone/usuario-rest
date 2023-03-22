@@ -33,27 +33,32 @@ public class UsuarioServiceImpl implements UsuarioService {
 	private final PhoneService phoneService;
 
 	@Override
-	public List<Usuario> getAll(){
+	public List<Usuario> getAll() {
 		return usuarioRepository.findAll();
 	}
 
 	@Override
-	public Usuario getByName(String name){
+	public Usuario getByName(String name) {
 		return usuarioRepository.findByName(name);
+	}
+
+	@Override
+	public Usuario update(Usuario usuario) {
+		return usuarioRepository.save(usuario);
 	}
 
 	@Override
 	@Transactional
 	public Usuario save(UserDTO usuarioDTO) throws ExistingEmailException, InvalidEmailException, InvalidPasswordException {
-		if (usuarioRepository.existByEmail(usuarioDTO.getEmail())){
-			throw new ExistingEmailException(usuarioDTO.getEmail() + " already exist!");
+		if (usuarioRepository.existByEmail(usuarioDTO.getEmail())) {
+			throw new ExistingEmailException(usuarioDTO.getEmail() + " is already registered!");
 		}
 
-		if (!patternMail.matcher(usuarioDTO.getEmail()).matches()){
+		if (!patternMail.matcher(usuarioDTO.getEmail()).matches()) {
 			throw new InvalidEmailException(usuarioDTO.getEmail() + " is not a valid email!");
 		}
 
-		if (!patternPassword.matcher(usuarioDTO.getPassword()).matches()){
+		if (!patternPassword.matcher(usuarioDTO.getPassword()).matches()) {
 			throw new InvalidPasswordException("The password dont match with the basic (min 8 characters, 1 letter upper another lower, 1 number and 1 special char)");
 		}
 
@@ -66,13 +71,17 @@ public class UsuarioServiceImpl implements UsuarioService {
 
 		user.setPhones(phoneService.saveList(usuarioDTO.getPhoneDTOList()));
 
-		return user;
+		return usuarioRepository.save(user);
 	}
 
 	@Override
-	public void delete(String name){
+	public void delete(String name) {
 		var userToDelete = usuarioRepository.findByName(name);
 		usuarioRepository.delete(userToDelete);
 	}
 
+	@Override
+	public void deleteAll() {
+		usuarioRepository.deleteAll();
+	}
 }

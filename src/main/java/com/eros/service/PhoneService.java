@@ -9,5 +9,5 @@ public interface PhoneService {
 
 	List<Phone> saveList(List<PhoneDTO> phones);
 
-	Phone save (Phone phone);
+	Phone save(Phone phone);
 }

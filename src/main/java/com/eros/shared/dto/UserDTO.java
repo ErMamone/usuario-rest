@@ -14,7 +14,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class UserDTO {
 
-	private UUID id;
+	private Long id;
 
 	private String name;
 
@@ -28,7 +28,7 @@ public class UserDTO {
 
 	private Date last_login;
 
-	private UUID token;
+	private String token;
 
 	private Integer is_active;
 

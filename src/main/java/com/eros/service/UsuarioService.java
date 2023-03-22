@@ -14,7 +14,11 @@ public interface UsuarioService {
 
 	Usuario getByName(String name);
 
+	Usuario update(Usuario usuario);
+
 	Usuario save(UserDTO usuarioDTO) throws ExistingEmailException, InvalidEmailException, InvalidPasswordException;
 
 	void delete(String name);
+
+	void deleteAll();
 }
